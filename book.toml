@@ -1,0 +1,6 @@
+[book]
+authors = ["azarmadr"]
+language = "en"
+multilingual = false
+src = "src"
+title = "vlsi-faq"
