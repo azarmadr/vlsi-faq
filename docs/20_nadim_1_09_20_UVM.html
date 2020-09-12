@@ -1,0 +1,349 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>UVM - vlsi-faq</title>
+        
+        
+
+
+        <!-- Custom HTML head -->
+        
+
+
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        
+        <link rel="icon" href="favicon.svg">
+        
+        
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        
+        <link rel="stylesheet" href="fonts/fonts.css">
+        
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body>
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="20_nadim_1_09_20.html"><strong aria-hidden="true">1.</strong> Interview 20</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="20_nadim_1_09_20_AXI.html"><strong aria-hidden="true">1.1.</strong> AXI</a></li><li class="chapter-item expanded "><a href="20_nadim_1_09_20_UVM.html" class="active"><strong aria-hidden="true">1.2.</strong> UVM</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light (default)</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                        
+                    </div>
+
+                    <h1 class="menu-title">vlsi-faq</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1><a class="header" href="#axi" id="axi">Axi</a></h1>
+<h2><a class="header" href="#axi3-vs-axi4" id="axi3-vs-axi4">Axi3 vs axi4</a></h2>
+<ol>
+<li>
+<p>AXI3 supports burst lengths up to 16 beats only. While AXI4 supports burst lengths of up to 256 beats.</p>
+</li>
+<li>
+<p>AXI3 supports write interleaving. AXI4 does NOT support write interleaving</p>
+</li>
+<li>
+<p>AXI3 supports locked transfers, AXI4 does NOT support locked transfers</p>
+</li>
+<li>
+<p>AXI4 supports QoS (Quality of Service), AXI3 does NOT support QoS.</p>
+</li>
+<li>
+<p>AXI4 supports optional 'USER' signals. AxUSER, WUSER, RUSER, BUSER. These can be used as sideband signals to pass user defined data from end2end. The protocol does not define the use of these signals, so the users have to be careful to use it in a 'local' env, without the expectation that any standard IP would.</p>
+<ol>
+<li>Support them</li>
+<li>Support them for the same intended purpose.</li>
+</ol>
+</li>
+<li>
+<p>AXI4 supports Regions. AxREGION signals. These are region identifier signals sent as AWREGION or ARREGION.
+These can be max 4 bits wide identifying up to max 16 different regions. These can be used by a single slave to have
+multiple decode regions.</p>
+</li>
+<li>
+<p>You can also see at times that AXI4 Slave may not have WID signal. The WID always has to match corresponding AWID
+and in absence of write-interleaving support in AXI4, the information on WID becomes redundant.
+Hence you may see AXI4 Slaves and even Masters for that matter without the WID signal.
+In fact in AXI4 and for that matter in AXI5, the WID signals cam be completely ignored.</p>
+<p>Many IP providers e.g. Synopsys supporting burst lengths up to 256 beats in AXI3
+Many IP providers e.g. Synopsys NOT supporting write interleaving in AXI3.</p>
+<p>Looks like the industry norm is to use AXI3 with burst lenghts up to 256 beats without support for write Interleaving.</p>
+</li>
+</ol>
+<h2><a class="header" href="#out-of-order" id="out-of-order">Out of order</a></h2>
+<p>In AXI, a transfer is not completed until the bus master receive the response from the read data channel or write response channel. Also after a bus master issue a transfer, it can issue another transfer without waiting for the first one to complete. <strong>If the order of the responses coming back from the slaves arrived in different order from the order that the transfers were issued, we can call it out of order completion.</strong></p>
+<p>The order transactions are sent and the order the responses were received is not same.</p>
+<h2><a class="header" href="#outstanding" id="outstanding">Outstanding</a></h2>
+<p>When master initiates a transaction without waiting it to complete, it can issue next transaction.</p>
+<h2><a class="header" href="#responses" id="responses">Responses</a></h2>
+<table><thead><tr><th>xRESP[1:0]</th><th>Responses</th></tr></thead><tbody>
+<tr><td>OKAY</td><td>Normal access success.</td></tr>
+<tr><td>EXOKAY</td><td>Exclusive access okay.</td></tr>
+<tr><td>SLVERR</td><td>Slave error. Used when the access has reached the slave successfully, but the slave wishes to return an error condition to the originating master</td></tr>
+<tr><td>DECERR</td><td>Decode error. Generated, typically by an interconnect component, to indicate that there is no slave at the transaction address</td></tr>
+</tbody></table>
+<h2><a class="header" href="#a-hrefhttpsblogssynopsyscomvip-central20160824amba-axi-exclusive-access-de-mystifiedexclusive-transfer---mechanisma" id="a-hrefhttpsblogssynopsyscomvip-central20160824amba-axi-exclusive-access-de-mystifiedexclusive-transfer---mechanisma"><a href="https://blogs.synopsys.com/vip-central/2016/08/24/amba-axi-exclusive-access-de-mystified/">Exclusive transfer - mechanism</a></a></h2>
+<ul>
+<li>Exclusive accesses are a sequence of read transactions followed by write transactions to the same address range.</li>
+<li>The exclusive write access of the master is signaled as successful if no other master has written to that location between the read and write accesses, failed if another master has written to that location between the read and write accesses. In this case the address location is not updated.</li>
+</ul>
+<h3><a class="header" href="#exclusive-access-restrictions" id="exclusive-access-restrictions">Exclusive access restrictions</a></h3>
+<ol start="2">
+<li>The burst size and burst length of an exclusive write with a given ID must be the same as the burst size and burst length of the preceding exclusive read with the same ID.</li>
+<li>The address of an exclusive access must be aligned to the total number of bytes in the transaction, that is, the product of the burst size and burst length.</li>
+<li>The addresses for the exclusive read and the exclusive write must be identical.</li>
+<li>The ARID value of the exclusive read must match the AWID value of the exclusive write.</li>
+<li>The control signals for the exclusive read and exclusive write transactions must be identical.</li>
+<li>The number of bytes to be transferred in an exclusive access burst must be a power of 2, that is, 1, 2, 4, 8, 16, 32, 64, or 128 bytes.</li>
+<li>The maximum number of bytes that can be transferred in an exclusive burst is 128.</li>
+<li>In AXI4, the burst length for an exclusive access must not exceed 16 transfers.</li>
+<li>The value of the AxCACHE signals must guarantee that the slave that is monitoring the exclusive access sees the transaction. For example, an exclusive access must not have an AxCACHE value that indicates that the transaction is Cacheable.</li>
+</ol>
+<h3><a class="header" href="#types" id="types">Types</a></h3>
+<ul>
+<li>An Exclusive Read can be followed by Normal Read or Write operation.</li>
+<li>A master might not complete the write portion of an exclusive operation.</li>
+<li>An Exclusive Read can follow an Exclusive Read with same ARID value as previous exclusive read and reset the monitor to a different address location.</li>
+<li>There can be two Exclusive Reads monitoring the same address region.</li>
+<li>An exclusive read/write to a slave which does not support Exclusive access.</li>
+</ul>
+<p>When exclusive fails, that location will not be updated</p>
+<h2><a class="header" href="#awlock" id="awlock">Awlock</a></h2>
+<table><thead><tr><th>AxLOCK[1:0]</th><th>Access type</th></tr></thead><tbody>
+<tr><td>0b00</td><td>Normal access</td></tr>
+<tr><td>0b01</td><td>Exclusive access</td></tr>
+<tr><td>0b10</td><td>Locked access</td></tr>
+<tr><td>0b11</td><td>Reserved</td></tr>
+</tbody></table>
+<h2><a class="header" href="#locked-transfer---diff-with-exclusive" id="locked-transfer---diff-with-exclusive">Locked transfer - diff with exclusive</a></h2>
+<p>AxLOCK signals are used by the Masters for a locked access to a slave and it's the arbiter/interconnect which takes care of the AxLOCK signal.
+The interconnect much ensure that only the master is allowed access to the slave until an unlocked transfer from the same master completes.</p>
+<h2><a class="header" href="#when-both-are-asserted-who-has-the-preference" id="when-both-are-asserted-who-has-the-preference">When both are asserted who has the preference</a></h2>
+<p><em>need to look up</em></p>
+<h2><a class="header" href="#interleaving" id="interleaving">Interleaving</a></h2>
+<ul>
+<li>With write data interleaving, a slave interface can accept interleaved write data with different AWID values.</li>
+<li>The write data interleaving depth is the number of addresses for which a slave can accept interleaved data.</li>
+<li>When accessing a slave that supports write data interleaving, write data from different transactions that use the same AWID cannot be interleaved.</li>
+</ul>
+<h2><a class="header" href="#axi-handshake" id="axi-handshake">Axi handshake</a></h2>
+<p>All five transaction channels use the same VALID/READY handshake process</p>
+<p>Types : VALID before READY | VALID after READY | VALID with READY</p>
+<p><img src="./read-channel-dep.jpg" alt="read channel dependencies!" />
+<img src="./write-channel-dep.jpg" alt="write channel dependencies!" />
+<img src="./write-resp-dep.jpg" alt="write response dependencies!" /></p>
+<table><thead><tr><th>Def</th><th>Elaboration</th></tr></thead><tbody>
+<tr><td>Write strobe</td><td>a byte lane strobe signal for every eight data bits, indicating which bytes of the data are valid.</td></tr>
+<tr><td>Narrow transfer</td><td>In incrementing or wrapping bursts, different byte lanes are used on each beat of the burst. In a fixed burst, the same byte lanes are used on each beat.</td></tr>
+<tr><td>Unaligned transfer</td><td>Use the low-order address lines to signal an unaligned start address. Provide an aligned address and use the byte lane strobes to signal the unaligned start address.</td></tr>
+</tbody></table>
+<h2><a class="header" href="#a-hrefhttpsgithubcomtaichi-ishitanitvip-axiout-of-order-testcasea" id="a-hrefhttpsgithubcomtaichi-ishitanitvip-axiout-of-order-testcasea"><a href="https://github.com/taichi-ishitani/tvip-axi">Out of order testcase</a></a></h2>
+<h2><a class="header" href="#coverage-in-axi" id="coverage-in-axi">Coverage in axi</a></h2>
+<p><em>need to look up</em>
+#UVM</p>
+<h2><a class="header" href="#uvm-pros-and-cons" id="uvm-pros-and-cons">Uvm pros and cons</a></h2>
+<h2><a class="header" href="#copy-clone-create" id="copy-clone-create">Copy clone create</a></h2>
+<h2><a class="header" href="#do-copy-do-clone-where-are-they" id="do-copy-do-clone-where-are-they">Do-copy do-clone where are they</a></h2>
+<h2><a class="header" href="#passive-to-active-of-agent" id="passive-to-active-of-agent">Passive to active of agent</a></h2>
+<h2><a class="header" href="#start-a-test" id="start-a-test">Start a test</a></h2>
+<h2><a class="header" href="#run_test" id="run_test">Run_test</a></h2>
+<h2><a class="header" href="#pre-and-post-body---how-to-disable" id="pre-and-post-body---how-to-disable">Pre and post body - how to disable</a></h2>
+<h2><a class="header" href="#rand-mode-0" id="rand-mode-0">Rand-mode 0</a></h2>
+<h2><a class="header" href="#seq-arbitration" id="seq-arbitration">Seq arbitration</a></h2>
+<h2><a class="header" href="#exclusive-access-for-the-seqr" id="exclusive-access-for-the-seqr">Exclusive access for the seqr</a></h2>
+<h2><a class="header" href="#m-and-p-seqr" id="m-and-p-seqr">M and p seqr</a></h2>
+<h2><a class="header" href="#default-seqr" id="default-seqr">Default seqr</a></h2>
+<h2><a class="header" href="#get-vs-get-next-item" id="get-vs-get-next-item">Get vs get-next-item</a></h2>
+<h2><a class="header" href="#factory" id="factory">Factory</a></h2>
+<h2><a class="header" href="#new-vs-create" id="new-vs-create">New vs create</a></h2>
+<h2><a class="header" href="#cross-coverage" id="cross-coverage">Cross coverage</a></h2>
+<h2><a class="header" href="#types-of-constraints" id="types-of-constraints">Types of constraints</a></h2>
+<h2><a class="header" href="#modport-vs-clockingblock" id="modport-vs-clockingblock">Modport vs clockingblock</a></h2>
+<h2><a class="header" href="#-vs-wait" id="-vs-wait">@ vs wait</a></h2>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+                            <a rel="prev" href="20_nadim_1_09_20_AXI.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <i class="fa fa-angle-left"></i>
+                            </a>
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+                    <a rel="prev" href="20_nadim_1_09_20_AXI.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <i class="fa fa-angle-left"></i>
+                    </a>
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script type="text/javascript">
+            window.playground_copyable = true;
+        </script>
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
