@@ -93,7 +93,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded "><a href="20_nadim_1_09_20.html"><strong aria-hidden="true">1.</strong> Interview 20</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="20_nadim_1_09_20_AXI.html"><strong aria-hidden="true">1.1.</strong> AXI</a></li><li class="chapter-item expanded "><a href="20_nadim_1_09_20_UVM.html" class="active"><strong aria-hidden="true">1.2.</strong> UVM</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded "><a href="20_nadim_1_09_20.html"><strong aria-hidden="true">1.</strong> Interview 20</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="20_nadim_1_09_20_AXI.html"><strong aria-hidden="true">1.1.</strong> AXI</a></li><li class="chapter-item expanded "><a href="20_nadim_1_09_20_UVM.html" class="active"><strong aria-hidden="true">1.2.</strong> UVM</a></li><li class="chapter-item expanded "><a href="20_nadim_1_09_20_SV.html"><strong aria-hidden="true">1.3.</strong> SV</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -159,133 +159,156 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1><a class="header" href="#axi" id="axi">Axi</a></h1>
-<h2><a class="header" href="#axi3-vs-axi4" id="axi3-vs-axi4">Axi3 vs axi4</a></h2>
+                        <h1><a class="header" href="#uvm" id="uvm">UVM</a></h1>
+<table><thead><tr><th>Advantages</th><th>DisAdvantages</th></tr></thead><tbody>
+<tr><td>1. Modularity and Reusability</td><td>1. Steep Learning Curve</td></tr>
+<tr><td>2. Separating Tests from Testbenches</td><td>2. Still in development</td></tr>
+<tr><td>3. Simulator independent</td><td>3. Too many Functions and Tasks</td></tr>
+<tr><td>4. Sequence based Stimulus generation</td><td>4. Overkill for small agents</td></tr>
+<tr><td>5. Configuration mechanisms</td><td>5. Bottleneck - lot of code to create TB</td></tr>
+<tr><td>6. Factory mechanisms</td><td></td></tr>
+<tr><td>7. Plug and Play</td><td></td></tr>
+<tr><td>8. Bidirectional</td><td></td></tr>
+<tr><td>9. Phasing mechanisms</td><td></td></tr>
+</tbody></table>
+<table><thead><tr><th>Copy</th><th>Clone</th><th>Create</th></tr></thead><tbody>
+<tr><td>The copy makes this object a copy of the specified object.</td><td>The clone method creates and returns an exact copy of this object.</td><td>The create method allocates a new object of the same type as this object and returns it via a base uvm_object handle.</td></tr>
+<tr><td>The do_copy method is the user-definable hook called by the copy method.</td><td>The default implementation calls create followed by copy.  As clone is virtual, derived classes may override this implementation if desired.</td><td>Pure virtual class. Hence, every class deriving from uvm_object, directly or indirectly, must implement the create method.</td></tr>
+</tbody></table>
+<h2><a class="header" href="#uvm_object" id="uvm_object">uvm_object</a></h2>
+<table><thead><tr><th>SEEDING</th><th>IDENTIFICATION</th><th>CREATION</th><th>PRINTING</th><th>RECORDING</th></tr></thead><tbody>
+<tr><td>use_uvm_seeding</td><td>set_name</td><td>create</td><td>print</td><td>record</td></tr>
+<tr><td>reseed</td><td>get_name</td><td>clone</td><td>sprint</td><td>do_record</td></tr>
+<tr><td></td><td>get_full_name</td><td></td><td>do_print</td><td></td></tr>
+<tr><td></td><td>get_inst_id</td><td></td><td>convert2string</td><td></td></tr>
+<tr><td></td><td>get_inst_count</td><td></td><td></td><td></td></tr>
+<tr><td></td><td>get_type</td><td></td><td></td><td></td></tr>
+<tr><td></td><td>get_object_type</td><td></td><td></td><td></td></tr>
+<tr><td></td><td>get_type_name</td><td></td><td></td><td></td></tr>
+</tbody></table>
+<table><thead><tr><th>COPYING</th><th>COMPARING</th><th>PACKING</th><th>UNPACKING</th><th>CONFIGURATION</th></tr></thead><tbody>
+<tr><td>copy</td><td>compare</td><td>pack</td><td>unpack</td><td>set_int_local</td></tr>
+<tr><td>do_copy</td><td>do_compare</td><td>pack_bytes</td><td>unpack_bytes</td><td>set_string_local</td></tr>
+<tr><td></td><td></td><td>pack_ints</td><td>unpack_ints</td><td>set_object_local</td></tr>
+<tr><td></td><td></td><td>do_pack</td><td>do_unpack</td><td></td></tr>
+</tbody></table>
+<h2><a class="header" href="#agent-mode" id="agent-mode">Agent Mode</a></h2>
+<p>The int configuration parameter <code>is_active</code> is used to identify whether this agent should be acting in active or passive mode.  This parameter can be set by doing:</p>
+<pre><code>uvm_config_int::set(this, &quot;&lt;relative_path_to_agent&gt;, &quot;is_active&quot;, UVM_ACTIVE);
+</code></pre>
+<p><code>get_is_active()</code> returns UVM_ACTIVE if the agent is acting as an active agent and UVM_PASSIVE if it is acting as a passive agent.</p>
+<h2><a class="header" href="#starting-a-test" id="starting-a-test">Starting a test</a></h2>
+<p>A particular test case can be selected and execute on two methods,</p>
 <ol>
-<li>
-<p>AXI3 supports burst lengths up to 16 beats only. While AXI4 supports burst lengths of up to 256 beats.</p>
+<li>by specifying the test name as an argument to run_test();
+<ul>
+<li>example: <code>run_test(&quot;mem_model_test&quot;);</code></li>
+</ul>
 </li>
-<li>
-<p>AXI3 supports write interleaving. AXI4 does NOT support write interleaving</p>
-</li>
-<li>
-<p>AXI3 supports locked transfers, AXI4 does NOT support locked transfers</p>
-</li>
-<li>
-<p>AXI4 supports QoS (Quality of Service), AXI3 does NOT support QoS.</p>
-</li>
-<li>
-<p>AXI4 supports optional 'USER' signals. AxUSER, WUSER, RUSER, BUSER. These can be used as sideband signals to pass user defined data from end2end. The protocol does not define the use of these signals, so the users have to be careful to use it in a 'local' env, without the expectation that any standard IP would.</p>
-<ol>
-<li>Support them</li>
-<li>Support them for the same intended purpose.</li>
-</ol>
-</li>
-<li>
-<p>AXI4 supports Regions. AxREGION signals. These are region identifier signals sent as AWREGION or ARREGION.
-These can be max 4 bits wide identifying up to max 16 different regions. These can be used by a single slave to have
-multiple decode regions.</p>
-</li>
-<li>
-<p>You can also see at times that AXI4 Slave may not have WID signal. The WID always has to match corresponding AWID
-and in absence of write-interleaving support in AXI4, the information on WID becomes redundant.
-Hence you may see AXI4 Slaves and even Masters for that matter without the WID signal.
-In fact in AXI4 and for that matter in AXI5, the WID signals cam be completely ignored.</p>
-<p>Many IP providers e.g. Synopsys supporting burst lengths up to 256 beats in AXI3
-Many IP providers e.g. Synopsys NOT supporting write interleaving in AXI3.</p>
-<p>Looks like the industry norm is to use AXI3 with burst lenghts up to 256 beats without support for write Interleaving.</p>
+<li>by providing the UVM_TESTNAME command line argument
+<ul>
+<li>example: <code>&lt;SIMULATION_COMMANDS&gt; +UVM_TESTNAME=mem_model_test</code></li>
+</ul>
 </li>
 </ol>
-<h2><a class="header" href="#out-of-order" id="out-of-order">Out of order</a></h2>
-<p>In AXI, a transfer is not completed until the bus master receive the response from the read data channel or write response channel. Also after a bus master issue a transfer, it can issue another transfer without waiting for the first one to complete. <strong>If the order of the responses coming back from the slaves arrived in different order from the order that the transfers were issued, we can call it out of order completion.</strong></p>
-<p>The order transactions are sent and the order the responses were received is not same.</p>
-<h2><a class="header" href="#outstanding" id="outstanding">Outstanding</a></h2>
-<p>When master initiates a transaction without waiting it to complete, it can issue next transaction.</p>
-<h2><a class="header" href="#responses" id="responses">Responses</a></h2>
-<table><thead><tr><th>xRESP[1:0]</th><th>Responses</th></tr></thead><tbody>
-<tr><td>OKAY</td><td>Normal access success.</td></tr>
-<tr><td>EXOKAY</td><td>Exclusive access okay.</td></tr>
-<tr><td>SLVERR</td><td>Slave error. Used when the access has reached the slave successfully, but the slave wishes to return an error condition to the originating master</td></tr>
-<tr><td>DECERR</td><td>Decode error. Generated, typically by an interconnect component, to indicate that there is no slave at the transaction address</td></tr>
-</tbody></table>
-<h2><a class="header" href="#a-hrefhttpsblogssynopsyscomvip-central20160824amba-axi-exclusive-access-de-mystifiedexclusive-transfer---mechanisma" id="a-hrefhttpsblogssynopsyscomvip-central20160824amba-axi-exclusive-access-de-mystifiedexclusive-transfer---mechanisma"><a href="https://blogs.synopsys.com/vip-central/2016/08/24/amba-axi-exclusive-access-de-mystified/">Exclusive transfer - mechanism</a></a></h2>
 <ul>
-<li>Exclusive accesses are a sequence of read transactions followed by write transactions to the same address range.</li>
-<li>The exclusive write access of the master is signaled as successful if no other master has written to that location between the read and write accesses, failed if another master has written to that location between the read and write accesses. In this case the address location is not updated.</li>
-</ul>
-<h3><a class="header" href="#exclusive-access-restrictions" id="exclusive-access-restrictions">Exclusive access restrictions</a></h3>
-<ol start="2">
-<li>The burst size and burst length of an exclusive write with a given ID must be the same as the burst size and burst length of the preceding exclusive read with the same ID.</li>
-<li>The address of an exclusive access must be aligned to the total number of bytes in the transaction, that is, the product of the burst size and burst length.</li>
-<li>The addresses for the exclusive read and the exclusive write must be identical.</li>
-<li>The ARID value of the exclusive read must match the AWID value of the exclusive write.</li>
-<li>The control signals for the exclusive read and exclusive write transactions must be identical.</li>
-<li>The number of bytes to be transferred in an exclusive access burst must be a power of 2, that is, 1, 2, 4, 8, 16, 32, 64, or 128 bytes.</li>
-<li>The maximum number of bytes that can be transferred in an exclusive burst is 128.</li>
-<li>In AXI4, the burst length for an exclusive access must not exceed 16 transfers.</li>
-<li>The value of the AxCACHE signals must guarantee that the slave that is monitoring the exclusive access sees the transaction. For example, an exclusive access must not have an AxCACHE value that indicates that the transaction is Cacheable.</li>
-</ol>
-<h3><a class="header" href="#types" id="types">Types</a></h3>
+<li>run_test( ) within tb_top as shown above, is a global task which is responsible for getting a reference to the uvm_root class instance from UVM core services.</li>
+<li>There is another run_test( ) method within uvm_root to
 <ul>
-<li>An Exclusive Read can be followed by Normal Read or Write operation.</li>
-<li>A master might not complete the write portion of an exclusive operation.</li>
-<li>An Exclusive Read can follow an Exclusive Read with same ARID value as previous exclusive read and reset the monitor to a different address location.</li>
-<li>There can be two Exclusive Reads monitoring the same address region.</li>
-<li>An exclusive read/write to a slave which does not support Exclusive access.</li>
+<li>phases all components through all registered phases.</li>
+<li>initialize factory settings</li>
+<li>report servers</li>
+<li>do basic level checks</li>
 </ul>
-<p>When exclusive fails, that location will not be updated</p>
-<h2><a class="header" href="#awlock" id="awlock">Awlock</a></h2>
-<table><thead><tr><th>AxLOCK[1:0]</th><th>Access type</th></tr></thead><tbody>
-<tr><td>0b00</td><td>Normal access</td></tr>
-<tr><td>0b01</td><td>Exclusive access</td></tr>
-<tr><td>0b10</td><td>Locked access</td></tr>
-<tr><td>0b11</td><td>Reserved</td></tr>
-</tbody></table>
-<h2><a class="header" href="#locked-transfer---diff-with-exclusive" id="locked-transfer---diff-with-exclusive">Locked transfer - diff with exclusive</a></h2>
-<p>AxLOCK signals are used by the Masters for a locked access to a slave and it's the arbiter/interconnect which takes care of the AxLOCK signal.
-The interconnect much ensure that only the master is allowed access to the slave until an unlocked transfer from the same master completes.</p>
-<h2><a class="header" href="#when-both-are-asserted-who-has-the-preference" id="when-both-are-asserted-who-has-the-preference">When both are asserted who has the preference</a></h2>
-<p><em>need to look up</em></p>
-<h2><a class="header" href="#interleaving" id="interleaving">Interleaving</a></h2>
-<ul>
-<li>With write data interleaving, a slave interface can accept interleaved write data with different AWID values.</li>
-<li>The write data interleaving depth is the number of addresses for which a slave can accept interleaved data.</li>
-<li>When accessing a slave that supports write data interleaving, write data from different transactions that use the same AWID cannot be interleaved.</li>
+</li>
 </ul>
-<h2><a class="header" href="#axi-handshake" id="axi-handshake">Axi handshake</a></h2>
-<p>All five transaction channels use the same VALID/READY handshake process</p>
-<p>Types : VALID before READY | VALID after READY | VALID with READY</p>
-<p><img src="./read-channel-dep.jpg" alt="read channel dependencies!" />
-<img src="./write-channel-dep.jpg" alt="write channel dependencies!" />
-<img src="./write-resp-dep.jpg" alt="write response dependencies!" /></p>
-<table><thead><tr><th>Def</th><th>Elaboration</th></tr></thead><tbody>
-<tr><td>Write strobe</td><td>a byte lane strobe signal for every eight data bits, indicating which bytes of the data are valid.</td></tr>
-<tr><td>Narrow transfer</td><td>In incrementing or wrapping bursts, different byte lanes are used on each beat of the burst. In a fixed burst, the same byte lanes are used on each beat.</td></tr>
-<tr><td>Unaligned transfer</td><td>Use the low-order address lines to signal an unaligned start address. Provide an aligned address and use the byte lane strobes to signal the unaligned start address.</td></tr>
-</tbody></table>
-<h2><a class="header" href="#a-hrefhttpsgithubcomtaichi-ishitanitvip-axiout-of-order-testcasea" id="a-hrefhttpsgithubcomtaichi-ishitanitvip-axiout-of-order-testcasea"><a href="https://github.com/taichi-ishitani/tvip-axi">Out of order testcase</a></a></h2>
-<h2><a class="header" href="#coverage-in-axi" id="coverage-in-axi">Coverage in axi</a></h2>
-<p><em>need to look up</em>
-#UVM</p>
-<h2><a class="header" href="#uvm-pros-and-cons" id="uvm-pros-and-cons">Uvm pros and cons</a></h2>
-<h2><a class="header" href="#copy-clone-create" id="copy-clone-create">Copy clone create</a></h2>
-<h2><a class="header" href="#do-copy-do-clone-where-are-they" id="do-copy-do-clone-where-are-they">Do-copy do-clone where are they</a></h2>
-<h2><a class="header" href="#passive-to-active-of-agent" id="passive-to-active-of-agent">Passive to active of agent</a></h2>
-<h2><a class="header" href="#start-a-test" id="start-a-test">Start a test</a></h2>
-<h2><a class="header" href="#run_test" id="run_test">Run_test</a></h2>
-<h2><a class="header" href="#pre-and-post-body---how-to-disable" id="pre-and-post-body---how-to-disable">Pre and post body - how to disable</a></h2>
-<h2><a class="header" href="#rand-mode-0" id="rand-mode-0">Rand-mode 0</a></h2>
+<h2><a class="header" href="#pre-and-post-body-in-a-sequence" id="pre-and-post-body-in-a-sequence">Pre and post body in a Sequence</a></h2>
+<p>The <code>*_body()</code> callbacks are designed to be skipped for child sequences, while <code>*_start()</code> callbacks are executed for all sequences.</p>
+<pre><code>virtual task start (
+  uvm_sequencer_base sequencer, // Pointer to sequencer
+  uvm_sequence_base parent_sequencer = null, // parent sequencer
+  integer this_priority = 100, // Priority on the sequencer
+  bit call_pre_post = 1 // pre_body and post_body called
+);
+</code></pre>
 <h2><a class="header" href="#seq-arbitration" id="seq-arbitration">Seq arbitration</a></h2>
+<p><code>seqr.set_arbitration();</code> Specifies the arbitration mode for the sequencer.</p>
+<pre><code>function void set_arbitration(
+UVM_SEQ_ARB_TYPE val
+)
+</code></pre>
+<table><thead><tr><th>Arbitration</th><th>Order</th></tr></thead><tbody>
+<tr><td>UVM_SEQ_ARB_FIFO (default)</td><td>Requests are granted in FIFO order</td></tr>
+<tr><td>UVM_SEQ_ARB_WEIGHTED</td><td>Requests are granted randomly by weight</td></tr>
+<tr><td>UVM_SEQ_ARB_RANDOM</td><td>Requests are granted randomly</td></tr>
+<tr><td>UVM_SEQ_ARB_STRICT_FIFO</td><td>Requests at highest priority granted in FIFO order</td></tr>
+<tr><td>UVM_SEQ_ARB_STRICT_RANDOM</td><td>Requests at highest priority granted in randomly</td></tr>
+<tr><td>UVM_SEQ_ARB_USER</td><td>Arbitration is delegated to the user-defined function, user_priority_arbitration.  That function will specify the next sequence to grant.</td></tr>
+</tbody></table>
 <h2><a class="header" href="#exclusive-access-for-the-seqr" id="exclusive-access-for-the-seqr">Exclusive access for the seqr</a></h2>
-<h2><a class="header" href="#m-and-p-seqr" id="m-and-p-seqr">M and p seqr</a></h2>
-<h2><a class="header" href="#default-seqr" id="default-seqr">Default seqr</a></h2>
-<h2><a class="header" href="#get-vs-get-next-item" id="get-vs-get-next-item">Get vs get-next-item</a></h2>
+<p><em>different from m and p seqr so need help
+might be lock</em></p>
+<table><thead><tr><th>m_sequencer</th><th>p_sequencer</th></tr></thead><tbody>
+<tr><td>generic uvm_sequencer pointer</td><td>typed-specific sequencer pointer</td></tr>
+<tr><td>initialized when the sequence is started</td><td>you would need to typecast the m_sequencer to the physical sequencer</td></tr>
+<tr><td>a handle of type uvm_sequencer_base which is available by default in a sequence</td><td>created by registering the sequence to the sequencer using macros.It will not exist if we have not registered the sequence with macros</td></tr>
+</tbody></table>
+<h2><a class="header" href="#default-sequencer" id="default-sequencer">Default sequencer</a></h2>
+<ul>
+<li>m_sequencer, available in any sequence, is the default sequencer</li>
+<li>A specific sequencer can be set using
+<ul>
+<li><code>uvm_sequence_item::set_sequencer()</code> in sequence_item</li>
+<li><code>create_item( ..., .l_sequencer(seqr))</code> in sequence</li>
+</ul>
+</li>
+</ul>
+<h2><a class="header" href="#sequencer---driver-interactions" id="sequencer---driver-interactions">Sequencer - Driver Interactions</a></h2>
+<ul>
+<li><code>get_next_item</code> and <code>get</code> will retrieve the next available item from a sequence. The call will block until an item is available.</li>
+<li><code>try_next_item</code> will try to retrieve if available, if not returns immediatly with request set to null object.</li>
+<li><code>peek</code> will retrieve the <em>present availabe</em> item from a sequence. The call will block until an item is available.
+<ul>
+<li>Once a request item has been retrieved and is in the sequencer FIFO, subsequent calls to peek will return the same item.</li>
+<li>The item will stay in the FIFO until either get or item_done is called.</li>
+</ul>
+</li>
+</ul>
+<p>The following steps occur on these calls:</p>
+<table><thead><tr><th>No.</th><th>Retrieves the next available item from a sequence</th></tr></thead><tbody>
+<tr><td>1</td><td>Seq Arbitration</td></tr>
+<tr><td>2</td><td>return from <code>wait_for_grant</code> in sequence</td></tr>
+<tr><td>3</td><td>Randomizaion</td></tr>
+<tr><td>4</td><td>Indicate <code>item_done</code> to the sequencer (only in <code>get</code>)</td></tr>
+<tr><td>5</td><td>return with a reference to the item</td></tr>
+</tbody></table>
+<p><code>item_done</code> will :-</p>
+<ul>
+<li>Indicates that the request is completed to the sequencer.
+<ul>
+<li>Any uvm_sequence_base::wait_for_item_done calls made by a sequence for this item will return.</li>
+</ul>
+</li>
+<li>The current item is removed from the sequencer FIFO.</li>
+<li>If a response item is provided, then it will be sent back to the requesting sequence.
+<ul>
+<li>The response item must have its sequence ID and transaction ID set correctly, using the uvm_sequence_item::set_id_info</li>
+</ul>
+</li>
+</ul>
 <h2><a class="header" href="#factory" id="factory">Factory</a></h2>
-<h2><a class="header" href="#new-vs-create" id="new-vs-create">New vs create</a></h2>
-<h2><a class="header" href="#cross-coverage" id="cross-coverage">Cross coverage</a></h2>
-<h2><a class="header" href="#types-of-constraints" id="types-of-constraints">Types of constraints</a></h2>
-<h2><a class="header" href="#modport-vs-clockingblock" id="modport-vs-clockingblock">Modport vs clockingblock</a></h2>
-<h2><a class="header" href="#-vs-wait" id="-vs-wait">@ vs wait</a></h2>
+<p>Using the factory involves three basic operations</p>
+<ol>
+<li>Registering objects and components types with the factory</li>
+<li>Designing components to use the factory to create objects or components</li>
+<li>Configuring the factory with type and instance overrides, both within and outside components</li>
+</ol>
+<table><thead><tr><th>new</th><th>create</th></tr></thead><tbody>
+<tr><td>SV</td><td>Factory - UVM</td></tr>
+<tr><td>class constructor which is used to create an instance of a class</td><td>factory method that is used to create the instances of uvm components &amp; objects with the help of class constructor</td></tr>
+<tr><td>No Factory registeration</td><td>Factory can only create the instances of the class which are registered with it</td></tr>
+<tr><td>No Factory Overriding</td><td>Can be overrided</td></tr>
+</tbody></table>
 
                     </main>
 
@@ -297,6 +320,10 @@ The interconnect much ensure that only the master is allowed access to the slave
                             </a>
                         
 
+                        
+                            <a rel="next" href="20_nadim_1_09_20_SV.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
                         
 
                         <div style="clear: both"></div>
@@ -311,6 +338,10 @@ The interconnect much ensure that only the master is allowed access to the slave
                     </a>
                 
 
+                
+                    <a rel="next" href="20_nadim_1_09_20_SV.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
                 
             </nav>
 
