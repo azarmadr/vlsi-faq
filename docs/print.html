@@ -420,11 +420,66 @@ might be lock</em></p>
 <tr><td>No Factory registeration</td><td>Factory can only create the instances of the class which are registered with it</td></tr>
 <tr><td>No Factory Overriding</td><td>Can be overrided</td></tr>
 </tbody></table>
-<h2><a class="header" href="#rand-mode-0" id="rand-mode-0">Rand-mode 0</a></h2>
 <h2><a class="header" href="#cross-coverage" id="cross-coverage">Cross coverage</a></h2>
+<ul>
+<li>Cross Coverage is specified between the cover points or variables</li>
+<li>Expressions cannot be used directly in a cross; a coverage point must be explicitly defined first</li>
+</ul>
 <h2><a class="header" href="#types-of-constraints" id="types-of-constraints">Types of constraints</a></h2>
-<h2><a class="header" href="#modport-vs-clockingblock" id="modport-vs-clockingblock">Modport vs clockingblock</a></h2>
-<h2><a class="header" href="#-vs-wait" id="-vs-wait">@ vs wait</a></h2>
+<ul>
+<li>Constraint Block, External Constraint Blocks and Constraint Inheritance</li>
+<li>Inside Operator</li>
+<li>Weighted Distribution</li>
+<li>Implication Operator and if-else</li>
+<li>Iterative in Constraint Blocks (foreach constraints)</li>
+<li>Disable Constraint</li>
+<li>Static Constraints</li>
+<li>In line Constraints</li>
+<li>Functions in Constraints</li>
+<li>Soft Constraints</li>
+<li>Unique Constraints</li>
+<li>Bidirectional Constraints</li>
+<li>Solve-Before</li>
+</ul>
+<h3><a class="header" href="#a-hrefhttpwwwverilabcomfilespaper51_taming_tb_timing_final_fixespdfinterface-modport--clockingblocka" id="a-hrefhttpwwwverilabcomfilespaper51_taming_tb_timing_final_fixespdfinterface-modport--clockingblocka"><a href="http://www.verilab.com/files/paper51_taming_tb_timing_FINAL_fixes.pdf">Interface: modport &amp; clockingblock</a></a></h3>
+<h4><a class="header" href="#clocking-block" id="clocking-block">Clocking Block</a></h4>
+<p>A clocking block must be part of a module or interface.</p>
+<table><thead><tr><th align="center">Nomenclature</th><th align="center">Use</th></tr></thead><tbody>
+<tr><td align="center">clocking event   : provides a synchronization reference for DUT and testbench</td><td align="center">this part is what enables us to avert race conditions</td></tr>
+<tr><td align="center">clocking signals : to be sampled and driven by the testbench</td><td align="center">can be any type: <br> nets and variables</td></tr>
+<tr><td align="center">clocking skew    : the timing, relative to the clock event, that the testbench uses to drive and sample those signals</td><td align="center">inputs must not have #0 delay, outputs can</td></tr>
+<tr><td align="center">clockvar: cb.signal; not a signal</td><td align="center">should only be used with <br> nb assignment <code>&lt;=</code></td></tr>
+</tbody></table>
+<p>Uses:</p>
+<ul>
+<li>Cycle oriented</li>
+<li>Decoupling Testbench from Signal Details
+<ul>
+<li><code>@(posedge clk)</code> becomes <code>@cb</code></li>
+</ul>
+</li>
+<li>Assuring Race-free Reading of Input Clockvars
+<ul>
+<li><code>cb.clockvar</code> better accessed <code>@cb</code> rather than <del><code>@(posedge clk)</code></del></li>
+</ul>
+</li>
+<li>Features:-
+<ul>
+<li>Inactive-Edge Skew Ex: <code>output negedge some_signal</code></li>
+<li><code>default clocking any_name@(posedge sysclk); endclocking</code></li>
+</ul>
+</li>
+</ul>
+<h4><a class="header" href="#modports" id="modports">ModPorts</a></h4>
+<ul>
+<li>groups and specifies the port directions to the wires/signals declared within the interface</li>
+<li>declared inside the interface with the keyword modport.</li>
+<li>can contain clocking block</li>
+<li>can be made virtual</li>
+</ul>
+<table><thead><tr><th align="center"><code>@ev</code></th><th align="center"><code>wait(ev.triggered)</code></th></tr></thead><tbody>
+<tr><td align="center">@ statement should be executed before the trigger</td><td align="center">wait can be executed before or after the trigger <br> (but in same time slot)</td></tr>
+</tbody></table>
 
                     </main>
 
